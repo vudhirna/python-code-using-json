@@ -1,0 +1,26 @@
+def test_process_csv_and_output_validation(self):
+    input_file = "input.csv"
+    output_file = "output.json"
+
+    
+    process_csv(input_file, output_file)
+
+   
+    with open(output_file, 'r') as json_file:
+        output_data = json.load(json_file)
+        validate(output_data, output_schema)
+
+    self.assertEqual(output_data, [
+        {"Name": "John", "Number": 153, "Squared": 23409, "Cubed": 3594247},
+        {"Name": "Alice", "Number": 28, "Squared": 784, "Cubed": 21952},
+        {"Name": "Bob", "Number": 6, "Squared": 36, "Cubed": 216}
+    ]) 
+
+def test_empty_input_file(self):
+    input_file = "empty_input.csv"
+    with self.assertRaises(IOError):
+        process_csv(input_file, "output.json")
+def test_missing_field_in_input(self):
+    input_file = "missing_field_input.csv"
+    with self.assertRaises(jsonschema.ValidationError):
+        process_csv(input_file, "output.json")
